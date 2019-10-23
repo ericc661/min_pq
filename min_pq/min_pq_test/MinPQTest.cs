@@ -1,24 +1,81 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace min_pq
 {
     [TestClass]
-    public class MinPQTest
+    public class HeapUtilityTest
     {
-        private int[] heap1;
-        private int size1;
+        //private int[] heap1;
+        //private int size1;
 
         [TestInitialize]
         public void InitTestState()
         {
-            heap1 = new int[100];
-            MinPriorityQueue pq = new MinPriorityQueue(100);
+            
+            
         }
 
+        /* Tests for CheckInvariants: partition along size/capacity of heap
+         *   (0, 1, etc.) as well as which invariant is violated/preserved:
+         *   size vs. capacity and heap property
+         */
+
+        //basic test to ensure exception thrown upon size > capacity
         [TestMethod]
-        public void TestMethod1()
+        [ExpectedException(typeof(Exception), "Heap size exceeds capacity.")]
+        public void TestCheckInvariants1()
         {
-            Assert.AreEqual(1, 1);
+            int[] heap = new int[5];
+            HeapUtility.CheckInvariants(heap, 6);
         }
+
+        //empty heap, nothing should happen
+        [TestMethod]
+        public void TestCheckInvariants2()
+        {
+            int[] heap = new int[0];
+            HeapUtility.CheckInvariants(heap, 0);
+        }
+
+        //heap of size 1, nothing should happen
+        [TestMethod]
+        public void TestCheckInvariants3()
+        {
+            int[] heap = new int[5];
+            heap[0] = 10;
+            HeapUtility.CheckInvariants(heap, 1);
+        }
+
+        //correct heap of size 8, no exceptions should be thrown
+        [TestMethod]
+        public void TestCheckInvariants4()
+        {
+            int[] heap = new int[10];
+            int[] values = { 5, 10, 9, 7, 15, 11, 13, 17 };
+            for(int i=0; i<values.Length; i++)
+            {
+                heap[i] = values[i];
+            }
+
+            HeapUtility.CheckInvariants(heap, values.Length);
+        }
+
+        //heap of size 6 that violates heap property
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "Heap property violated.")]
+        public void TestCheckInvariants5()
+        {
+            int[] heap = new int[10];
+            int[] values = { 5, 7, 9, 8, 3, 10 };
+            for (int i = 0; i < values.Length; i++)
+            {
+                heap[i] = values[i];
+            }
+
+            HeapUtility.CheckInvariants(heap, values.Length);
+        }
+
+
     }
 }
