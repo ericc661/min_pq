@@ -19,9 +19,19 @@ namespace min_pq
             }
             else
             {
-                //for (int i=0; i<this.size; )
+                //don't check the root's parent as it has none
+                int parent; //stores index of parent for current node
+                for (int i=1; i<size; i++ )
+                {
+                    parent = (i - 1) / 2;
+                    if (heap[parent] > heap[i])
+                    {
+                        throw new Exception("Heap property violated.");
+                    }
+                }
             }
-            throw new NotImplementedException();
+
         }
+
     }
 }

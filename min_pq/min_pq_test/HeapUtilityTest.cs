@@ -52,7 +52,7 @@ namespace min_pq
         public void TestCheckInvariants4()
         {
             int[] heap = new int[10];
-            int[] values = { 5, 10, 9, 7, 15, 11, 13, 17 };
+            int[] values = { 5, 10, 9, 11, 13, 12 };
             for(int i=0; i<values.Length; i++)
             {
                 heap[i] = values[i];
