@@ -35,5 +35,38 @@ class test_check_invariant(unittest.TestCase):
         except RuntimeError():
             self.fail('Unexpected - heap invariant violated')
 
+class test_insert(unittest.TestCase):
+
+    # trivial case
+    def test1(self):
+        pq = min_PQ()
+        pq.insert(10)
+        self.assertEqual(len(pq.heap), 1)
+        self.assertEqual(pq.heap, [10])
+
+    # also sort of trivial
+    def test2(self):
+        pq = min_PQ()
+        pq.heap = [5]
+        pq.insert(7)
+        self.assertEqual(len(pq.heap), 2)
+        self.assertEqual(pq.heap, [5, 7])
+
+    # inserting a new minimum priority
+    def test3(self):
+        pq = min_PQ()
+        pq.heap = [2, 5, 7, 8, 9]
+        pq.insert(1)
+        self.assertEqual(len(pq.heap), 6)
+        self.assertEqual(pq.heap, [1, 5, 2, 8, 9, 7])
+
+    # inserting a priority that ends up somewhere in the middle
+    def test4(self):
+        pq = min_PQ()
+        pq.heap = [5, 8, 11, 13, 14, 12, 17, 19]
+        pq.insert(10)
+        self.assertEqual(len(pq.heap), 9)
+        self.assertEqual(pq.heap, [5, 8, 11, 10, 14, 12, 17, 19, 13])
+
 if __name__ == '__main__':
     unittest.main()
