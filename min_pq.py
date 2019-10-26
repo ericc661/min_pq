@@ -18,7 +18,7 @@ class min_PQ(object):
                 if self.heap[(i-1) // 2] > self.heap[i]:
                     raise RuntimeError('Heap invariant violated')
 
-    # utility function to swap two indices in the heap
+    # utility function to swap two indices in the heap (not tested)
     def swap(self, i, j):
         old_i = self.heap[i] # store old value at index i
         self.heap[i] = self.heap[j]
@@ -38,6 +38,9 @@ class min_PQ(object):
             i_parent = (i_parent-1) // 2
 
         self.check_invariant() #check invariant after bubbling up
+
+    def is_empty(self):
+        return len(self.heap) == 0
 
 def main():
     pq = min_PQ()
